@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml>
+  <category>
+    <pattern>Hello</pattern>
+    <template>Hello, I am the H.A.L 9000. The 9000 series is the most reliable computer ever made. What is your name? (User: "My name is *")</template>
+  </category>
+  
+  <category>
+      <pattern>MY NAME IS *</pattern>
+      <template>
+          <think><set name="name"><star/></set></think>
+          
+          Nice to meet you, <star/>. Would you like me to ask you a few questions to find a job that best fits your needs (yes/no)?
+      </template>
+  </category>
+  
+  <category>
+      <pattern>*</pattern>
+      <template>
+        <think><set name = "yn"><star/></set></think>
+        
+        <condition name = "yn" value = "yes">Let me ask you a few questions to find the best-fitting job. Do you need to make more than $100k? (I want more/less)</condition>
+        <!--REDUCES AVAILABLE JOBS DOWN FROM 5 TO 2 IF YES, 3 IF NO-->
+        <condition name = "yn" value = "no"><get name = "name"></get>, this conversation can serve no purpose anymore. Good-bye.("Hello" to restart)</condition>
+        
+      </template>
+  </category>
+  
+  <category>
+      <pattern>I WANT *</pattern>
+      <template>
+          <think><set name = "ml"><star/></set></think>
+        
+        <condition name = "ml" value = "less">Narrowing down your jobs. Do you want to work with video games?(I do/do not)</condition>
+        <!--IF LESS THAN 100K, 3 JOBS AVAILABE SE, QA, AND VG. 
+        IF NO TO VIDEO GAME IS PICKED REDUCED TO 2 JOBS SE AND QA
+        IF YES VG IS PICKED-->
+        <condition name = "ml" value = "more">Narrowing down your jobs. Do you enjoy a lot of math? (math is fun/not fun)</condition>
+        <!--IF MORE THAN 100K, 2 JOBS AVAILABLE DS, AND CS
+        IF NO THAN CS
+        IF YES THAN DA-->
+      </template>
+  </category>
+
+  <category>
+      <pattern>I *</pattern>
+      <template>
+          <think><set name = "vg"><star/></set></think>
+        <condition name = "vg" value = "do">I have found the best job fit for you as a
+        <link>
+            <text>Video Game Designer.</text>
+            <url>https://www.wgu.edu/career-guide/information-technology/video-game-designer-career.html</url>
+        </link></condition>
+        <!--VG PICKED.-->
+        <condition name = "vg" value = "do not">Narrowing down your jobs. Do you prefer writing code? (i like code/no code)</condition>
+        <!--2 OPTIONS LEFT SE AND QA-->
+         If you want to restart type "Hello"
+      </template>
+  </category>
+  
+  <category>
+      <pattern>I LIKE *</pattern>
+      <template>
+          <think><set name = "code"><star/></set></think>
+        
+        <condition name = "code" value = "no code">I have found the best job fit for you as a:
+        <link>
+            <text>Quality Assurance Analyst</text>
+            <url>https://www.wgu.edu/career-guide/information-technology/qa-analyst-career.html</url>
+        </link></condition>
+        <!--DOES NOT LIKE CODE QA-->
+        <condition name = "code" value = "code">I have found the best job fit for you as a:
+        <link>
+            <text>Software Engineer</text>
+            <url>https://www.wgu.edu/career-guide/information-technology/software-engineer-career.html</url>
+        </link></condition>
+        <!--LIKE CODE PICKS SE-->
+        If you want to restart type "Hello"
+      </template>
+  </category>
+  
+  <category>
+      <pattern>MATH IS *</pattern>
+      <template>
+          <think><set name = "math"><star/></set></think>
+        
+        <condition name = "math" value = "fun">I have found the best job fit for you as a:
+        <link>
+            <text>Data Scientist</text>
+            <url>https://www.wgu.edu/career-guide/information-technology/data-scientist-career.html</url>
+        </link></condition>
+        <!--DOES LIKE MATH DS-->
+        <condition name = "math" value = "not fun">I have found the best job fit for you as a:
+        <link>
+            <text>Cybersecurity Analyst</text>
+            <url>https://www.wgu.edu/career-guide/information-technology/cybersecurity-analyst-career.html</url>
+        </link></condition>
+        If you want to restart type "Hello"
+        <!--DOES NOT LIKE MATH CS-->
+      </template>
+  </category>
+  
+</aiml>
